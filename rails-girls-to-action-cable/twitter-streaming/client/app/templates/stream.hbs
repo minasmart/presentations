@@ -1,0 +1,19 @@
+{{#if model.filter}}
+  <h3>Streaming tweets with {{model.filter}}</h3>
+
+  <div class="tweets">
+    {{#each model.tweets as |tweet|}}
+      {{twitter-tweet tweetId=tweet.id}}
+    {{/each}}
+  </div>
+
+  <hr>
+  <button {{action "forgetFilter"}}>Try a new filter</button>
+{{else}}
+  <h3>Enter a filter:</h3>
+
+  <form {{action "storeFilter" inputFilter on="submit"}}>
+    {{input value=inputFilter}}
+    <button {{action "storeFilter" inputFilter}}>Start Streamin'</button>
+  </form>
+{{/if}}

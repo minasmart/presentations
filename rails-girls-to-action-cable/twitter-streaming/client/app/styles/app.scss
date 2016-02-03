@@ -1,0 +1,11 @@
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+
+.tweets {
+  height: 800px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: #AAA solid 1px;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
