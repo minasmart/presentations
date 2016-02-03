@@ -5,14 +5,22 @@ export default Ember.Route.extend({
     const username = localStorage.getItem('username');
     this.cable = window.ActionCable.createConsumer('http://localhost:3000/cable');
 
-    if (username) {
-      this.connect();
-    }
     return { username, messages: Ember.A([]) };
   },
 
+  setupController(controller, model) {
+    this._super(...arguments);
+
+    if (model.username) {
+      this.connect();
+    }
+  },
+
   connect() {
-    this.subscription = this.cable.subscriptions.create('TalkChannel', {
+    this.subscription = this.cable.subscriptions.create({
+      channel: 'TalkChannel',
+      username: this.controller.get('model.username')
+    }, {
       disconnected() {
         alert('dun\' broke the connection!');
       },
@@ -44,6 +52,7 @@ export default Ember.Route.extend({
     sendMessage(body) {
       const username = this.controller.get('model.username');
       this.subscription.perform('talk', { body, username });
+      this.controller.set('inputMessage', '');
     }
   }
 });

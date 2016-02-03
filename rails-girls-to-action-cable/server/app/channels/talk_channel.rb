@@ -2,6 +2,10 @@
 class TalkChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'messages'
+    ActionCable.server.broadcast('messages', {
+      body: "Say hi to our new friend: #{params[:username]}!",
+      username: 'Chat Bot'
+    })
   end
 
   def talk(data)
