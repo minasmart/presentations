@@ -1,0 +1,18 @@
+{{#if model.username}}
+  <h1>Nice to see ya' {{model.username}}</h1>
+  {{#each model.messages as |message|}}
+    <div>
+      <strong>{{message.username}}:</strong>
+      {{message.body}}
+    </div>
+  {{/each}}
+
+  {{input value=inputMessage}}
+  <button {{action "sendMessage" inputMessage}}>Send Message</button>
+  <button {{action "forgetUsername"}}>BYE!</button>
+{{else}}
+  <h1>Enter a username:</h1>
+
+  {{input value=inputUsername}}
+  <button {{action "storeUsername" inputUsername}}>Start Talkin'</button>
+{{/if}}
