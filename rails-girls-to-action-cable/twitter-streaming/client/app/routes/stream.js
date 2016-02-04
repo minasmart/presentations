@@ -22,7 +22,7 @@ export default Ember.Route.extend({
       filter: this.controller.get('model.filter')
     }, {
       disconnected() {
-        alert('dun\' broke the connection!');
+        console.info('dun\' broke the connection!');
       },
       received: this.receivedTweet.bind(this)
     });

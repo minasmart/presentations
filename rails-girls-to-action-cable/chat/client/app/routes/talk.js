@@ -22,7 +22,7 @@ export default Ember.Route.extend({
       username: this.controller.get('model.username')
     }, {
       disconnected() {
-        alert('dun\' broke the connection!');
+        console.info('dun\' broke the connection!');
       },
       received: this.receivedMessage.bind(this)
     });
