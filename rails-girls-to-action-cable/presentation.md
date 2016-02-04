@@ -108,16 +108,21 @@ interesting is doing this in rails.
 
 ![inline](images/ruby.png)
 
-^ There are existing solutions. But you don't see them in hugely wide spread use
-cases. I don't think this is because there aren't a lot of use cases fro web
-sockets. I think it has a lot to do with ecosystem.
+^ There are existing solutions. The ones I have here are Socket.io (for nodeJS)
+and Event Machine (for ruby). As a side note: Event Machine is a really
+interesting ruby gem. It gives you a fun way to work with threads and queues
+that's a little more user friendly than just `require 'thread'`
+
+^ I haven't seen these projects used very gain a ton of traction or see really
+wide spread use. I don't think this is because they're bad, or that there aren't
+a lot of use cases for web sockets.  I think it has a lot to do with ecosystem.
 
 ---
 
 # Ecosystem
 
-^ Rails has one hell of an ecosystem. It's a big reason why so many of us use
-it. But it's not just the ecosystem, it's the framework.
+^ Rails has one hell of an ecosystem. It's one of the reasons why so many of us
+use it. More than the just the ecosystem, it's the framework.
 
 ---
 
@@ -130,13 +135,13 @@ it. But it's not just the ecosystem, it's the framework.
 - Background Processing
 - Mailers
 
-^ Rails gives us a lot of stuff from the start, that none of these previous
-approaches (EM, Socket.io) give us. Previous solutions are very stand alone.
-There are ways to integrate these into your existing infrastructure, but they're
-all home rolled and very custom. Action cable gives us a nice way to work with
-everything that exists in rails. So whether you're building a new app, or adding
-functionality to an existing application, Action Cable gives you a happy path to
-do that.
+^ Rails gives us a lot of stuff from the start, (mention points) that none of
+these previous approaches (EM, Socket.io) give us. Previous solutions are very
+stand alone. There are ways to integrate these into your existing
+infrastructure, but they're all home rolled and very custom. Action cable gives
+us a nice way to work with everything that exists in rails. So whether you're
+building a new app, or adding functionality to an existing application, Action
+Cable gives you a happy path to do that.
 
 ---
 
@@ -195,9 +200,11 @@ wanted to see how easy it is to do shave out one of rails' layers
 
 ---
 
-# Servers that do work
+#### Rails + Action Cable + Ember = Neato
 
-![inline](images/here-we-go.gif)
+---
+
+![inline fill](images/servers-that-work.jpg)
 
 ^ Let's look at another demo, but this time where after a client connects, the
 server starts doing some work that doesn't really have an end. It just starts

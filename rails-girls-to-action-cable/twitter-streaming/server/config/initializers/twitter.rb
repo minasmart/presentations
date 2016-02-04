@@ -4,10 +4,10 @@ module TwitterStream
   class << self
     def configure
       @client = Twitter::Streaming::Client.new do |config|
-        config.consumer_key        = "<consumer_key>"
-        config.consumer_secret     = "<consumer_secret>"
-        config.access_token        = "<access_token>"
-        config.access_token_secret = "<access_token_secret>"
+        config.consumer_key        = "voa81SelYqBkYj49R1Zg2cSZY"
+        config.consumer_secret     = "Godf5No5saDSkuiGo7TomcU3AoW9QE1y8ysETCGxc1vPep5iyQ"
+        config.access_token        = "27662657-9fgP2HCqppLeFVpPsslJtQ0jXswfCIXWGSng331qm"
+        config.access_token_secret = "el9jj47Up6uzPGE5uI0dXSkS7W6jA92bJypCn9yrORSbq"
       end
     end
 
