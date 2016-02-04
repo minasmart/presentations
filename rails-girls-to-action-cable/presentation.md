@@ -59,7 +59,7 @@ That's not a very concise explanation.
 # GET, POST, PATCH, PUT, DELETE
 
 ^ What this really means for us as Rails devs is that Rails is an application
-that responds to requests sent over TCP.
+that responds to requests sent over the network.
 
 ---
 
@@ -236,6 +236,10 @@ easy it is to do shave out one of rails' layers)
 ---
 
 #### Rails + Action Cable + Ember = Neato
+
+^ That's still an HTTP-ish example. Every event is precipitated by a client sent
+event. The other thing I mentioned was externalities, or where the server has to
+do some long running work.
 
 ---
 
