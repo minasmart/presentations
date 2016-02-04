@@ -4,7 +4,11 @@
 
 ##### by Mina Smart @ Shopify
 
-^ Say hello. Introduce yourself. Tell them what you're presenting (Action Cable)
+^ Say hello. Introduce yourself.
+
+^ Mention that people can interrupt and ask me to delve into something. I've
+been programming for a long time so I'll touch on a lot of little things, but if
+you're curious about something, please ask.
 
 ---
 
@@ -68,7 +72,7 @@ Optionally sends some data. And the server responds.
 
 # The Web
 
-![inline](images/the-web.gif)
+![inline](images/cage-web.png)
 
 ^ This is the semantic that the web is built around. This is what makes web
 sockets disruptive. They change the relationship between the browser and
@@ -191,12 +195,43 @@ bit easier.
 
 ---
 
+# How does action cable work?
+
+^ Let's talk a little bit about how action cable works.
+
+---
+
+- Ruby API
+- Javascript SDK
+
+^ Action Cable gives the developer two separate APIs. A Ruby API, and a
+javascript SDK. The ruby API helps you implement work on the server. The
+Javascript SDK lets you build out your clients.
+
+---
+
+- Connections
+- Channels
+- Streams
+
+^ Internally, Action Cable models websockets using Connections, Channels and
+streams. When a client connects, a new connection instance is created. There's
+typically only one connection between any browser instance (or tab) and the
+server. Channels represent a logical unit of work. The help you segment your
+connection into multiple things, so like a chat channel, and a notifications
+channel. Streams are how the server segments broadcasting within a channel. When
+a client connects to something like a chat room, they'd connect to the chat
+channel, the server would figure out what room the client is interested, and
+subscribe them to the stream for that room within the chat channel.
+
+---
+
 # Let's look at some code
 
-^ I want to show you another demo around this idea, but first let's look at the
-code for the chat app. (Start with the rubby. Then move into the Ember. Explain
-why I've used Ember. There are a ton of apps that use rails as an API and I
-wanted to see how easy it is to do shave out one of rails' layers
+^ I want to show you another demo, but first let's look at the code for the chat
+app. (Start with the rubby. Then move into the Ember. Explain why I've used
+Ember. There are a ton of apps that use rails as an API and I wanted to see how
+easy it is to do shave out one of rails' layers)
 
 ---
 
@@ -244,3 +279,4 @@ or fix some of it, all of this code is on my github.
 # Thanks!
 
 ![inline fill](images/thanks.gif)
+
