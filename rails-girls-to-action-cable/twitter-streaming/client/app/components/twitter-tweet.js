@@ -9,6 +9,6 @@ export default Ember.Component.extend({
 
     if (Ember.isEmpty(tweetId)) { return; }
 
-    window.twttr.widgets.createTweet(tweetId.toString(), this.$('.the-tweet')[0]);
+    window.twttr.widgets.load(this.$()[0]);
   }
 });

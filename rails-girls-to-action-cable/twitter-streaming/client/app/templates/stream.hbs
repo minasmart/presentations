@@ -3,7 +3,10 @@
 
   <div class="tweets">
     {{#each model.tweets as |tweet|}}
-      {{twitter-tweet tweetId=tweet.id}}
+      {{twitter-tweet tweetId=tweet.id
+                      tweetFullText=tweet.full_text
+                      tweetSounce=tweet.source
+                      tweetUri=tweet.uri}}
     {{/each}}
   </div>
 
