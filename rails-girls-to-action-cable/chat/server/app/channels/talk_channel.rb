@@ -14,4 +14,11 @@ class TalkChannel < ApplicationCable::Channel
       username: data['username']
     })
   end
+
+  def unsubscribed
+    ActionCable.server.broadcast('messages', {
+      body: "Bye #{params[:username]}!",
+      username: 'Chat Bot'
+    })
+  end
 end
