@@ -40,7 +40,7 @@ how this process works.
 ^ This can be hard. It can be really hard especially if you don't know where to
 start.
 
-Often the hardest part is getting noticed.
+^ Often the hardest part is getting noticed.
 
 ---
 
@@ -122,22 +122,6 @@ refer you: You've jumped over the hardest hurdle around getting noticed.
 ^ So what happens next? Well hopefully:
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Hooray! You've got an interview!
 
