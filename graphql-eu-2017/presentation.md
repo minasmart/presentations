@@ -38,10 +38,6 @@ theme: Poster
 
 # Requirements!
 
-^ Let's take a look at some of the features we needed.
-
----
-
 [.build-lists: true]
 
 - Not UI bound (Data Only)
@@ -49,14 +45,15 @@ theme: Poster
 - Generative Relay-stile Resource reloading
 - No Client side Query Parsing
 
+^ Let's take a look at some of the features we needed.
+
 ---
 
 # Data Only
 
-^ Starting out, we needed a client that was data only and not UI bound.
+^ We needed a client that was data only and not UI bound. We needed a client that could work as well in node environments as in any arbitrary UI
 
-^ One of the most common questions I got around this was if you're work isn't
-necessarily UI bound, why not just use...
+^ One of the most common questions I got around this was if you're work isn't necessarily UI bound, why not just use...
 
 ---
 
@@ -200,7 +197,7 @@ reload(data.shop.products[1]).then(product => {
 });
 ```
 
-^ We wanted to have a similar interface for reloading. No tree traversal. No query construction. And the same style of query generation that we use for paginatino
+^ We wanted to have a similar interface for reloading. No tree traversal. No query construction. And the same style of query generation that we use for pagination
 
 ---
 
@@ -248,7 +245,7 @@ const query = client.query((root) => {
 
 # [fit] Bundled Schema
 
-^ In order to get type data into the objects our client returns, we need access to the type bundle. In fact, it needs to be distributed with the client.
+^ In order to get type data into the objects our client returns, we need access to the introspection data. In fact, it needs to be distributed with the client.
 
 ^ However, runtime introspection can be a heavy request and use a ton of memory.
 
@@ -290,7 +287,7 @@ export default Product;
 
 ^ So now that we have type information, and an AST of the query, what does this let us do?
 
-^ During the decoding phase, we're able to attach next and previous page queries to connection objects, and abstract out the whole connection architecture, so instead of forcing consumers to look at two types of lists, all lists look the same, but some have additional pagination data associated with them.
+^ During our client's decoding phase, we're able to attach next and previous page queries to connection objects, and abstract out the whole connection -> edges -> node structure into a simple array. So, instead of forcing consumers to look at two types of lists for paginated and non paginated sets, all lists look the same, but some have additional data associated with them.
 
 ---
 
@@ -308,7 +305,7 @@ function defaultTransformers({classRegistry}) {
 }
 ```
 
-^ Since what we're doing through our decoding process is sort of complex, we actually managed our decode process like a set of middle ware. This allows us to have an extensible interface, so we can add or remove decoding features in the future, without really impacting what already exists in our client
+^ Since what we're doing through our decoding process is sort of complex, we build our decoder like a set of middle ware. This allows us to have an extensible interface, so we can add or remove decoding features in the future, without really impacting what already exists in our client
 
 ---
 
