@@ -22,36 +22,32 @@ theme: Poster
 
 # Why?
 
-^ TODO: Maybe remove this slide and the relay and apollo slides and just talk about
-our constraints and toss a mention at relay and apollo
-
-^ I'm sure the first question a lot of you have is why am I building a new GraphQL client when we already have libraries like Relay and Apollo. Let's look!
+^ With first class clients like Relay and Apollo, why would anyone do this?
 
 ---
 
-# Relay
+# Why Not?
 
-#### (The library, not the spec)
+# 😏
 
-^ Relay and Relay modern are great tools.
+^ The more fun question for me was "Why Not?" But we did have some real reasons.
 
-^ If you're building a React UI.
-
-^ The problems that my team solve don't necessarily include a UI. We can't assume there is a UI, or that our client is going to be used in one.
+^ We had some constraints and requirements that the existing clients didn't cover.
 
 ---
 
-# Apollo
+# Requirements!
 
-^ Now Apollo: When we started working on our own client, Apollo was not where it is today.
-
-^ Apollo's feature set (at the time we built our client) didn't fit our wish list. To an extent, it still doesn't do everything we wanted to accomplish around relay style pagination.
+^ Let's take a look at some of the features we needed.
 
 ---
 
-# So What Did We need?
+[.build-lists: true]
 
-^ Let's take a look at some of the features we did need.
+- Not UI bound (Data Only)
+- Generative Relay-style Pagination
+- Generative Relay-stile Resource reloading
+- No Client side Query Parsing
 
 ---
 
@@ -144,6 +140,58 @@ fetchNextPage(data.shop.collections[0].products[0].variants[0].images).then(imag
 
 ---
 
+### Query Generation
+
+```json
+query {
+  shop {
+    collections(first: 10) {
+      edges {
+        node {
+          products(first: 3) {
+            edges {
+              node {
+                variants(first: 1) {
+                  edges {
+                    node {
+                      images(first: 1) {
+                        src
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+^ We needed something that could take a base query like this, which would load a preview page for a shop
+
+---
+
+### Query Generation
+
+```json
+query {
+  node(id: "Z2lkOi8vc2hvcGlmeS9WYXJpYW50cy8xMjMzNDUK") {
+    ... on Variant {
+      images(first: 100, after: "z20i66RtwzN") {
+        src
+      }
+    }
+  }
+}
+```
+
+^ And be able to generate the next page query for the most deeply nested set of data within the object graph
+
+---
+
 # Reloading
 
 ```javascript
@@ -152,13 +200,7 @@ reload(data.shop.products[1]).then(product => {
 });
 ```
 
-^ We wanted to have a similar interface for reloading. No tree traversal. No query construction.
-
----
-
-# Type Aware?
-
-^ Without a type-aware client we couldn't have done any of this.
+^ We wanted to have a similar interface for reloading. No tree traversal. No query construction. And the same style of query generation that we use for paginatino
 
 ---
 
@@ -195,6 +237,12 @@ const query = client.query((root) => {
 ```
 
 ^ To get an AST without a parser, we built a query builder API. I know a lot of people aren't a fan of this so we also took a hint from the Relay team, and built a babel plugin that can transform a raw query into this syntax.
+
+---
+
+# Type Aware Client
+
+^ Without a type-aware client we couldn't have done any of the query generation I talked about earlier.
 
 ---
 
@@ -264,40 +312,31 @@ function defaultTransformers({classRegistry}) {
 
 ---
 
-# Tooling
+# The Future
 
-^ TODO: Rework this, make it more "What'd we build?"
+^ What's next?
 
-^ Getting all of these pieces working was a pretty large task for a pretty small team. To get everything built out nicely actually meant building out a few separate bits of tooling to get things working.
+^ In the future, we've been looking at building graphql compiler, that can take graphql files, and turn them into js modules. This would keep our query files separate from the rest of our source code, which could have some positive side effects for us, like making it easier for us to profile the types of queries and fields we're actually using, which lets us optimize the type information we ship with a client.
 
 ---
+
+# So What Have We Built?
+
+[.build-lists: true]
 
 - graphql-js-client
 - graphql-js-schema
 - graphql-js-schema-fetch
 - babel-plugin-graphql-js-client-transform
 
+
+^ Getting all of these pieces working was a pretty large task for a pretty small team. To get everything built out nicely actually meant building out a few separate bits of tooling to get things working.
+
 ^ We have the base client. We have the schema transform tool. A schema introspection tool. The babel transform.
 
-^ Soon we'll be adding more.
+^ Soon we'll be adding our graphql compiler, and maybe even similar graphql client libraries in other languages
 
----
-
-# The Future
-
-^ TODO: Either scrap this, or move it before tooling
-
-^ What's next?
-
-^ In the future, we've been looking at building graphql compiler, that can take graphql files, and turn them into js modules. Keeping our queries separate could have a few positive side effects, like making it easier for us to profile the types of queries and fields we're actually using.
-
----
-
-# How'd we do?
-
-^ Building this taught our team a lot about the graphql & relay specs, as well as the graphql language. In the end, we build a client that doesn't do what the popular clients do, but also does some things the popular clients don't. My team also learned the GraphQL language and specification more deeply than we would have otherwise.
-
-^ And why don't y'all tell us how we did?
+^ Building this taught our team a lot about the graphql & relay specs, as well as the graphql language. In the end, we build a functional client that meets all of our requirements, and hopefully it'll be useful for someone else!
 
 ---
 
