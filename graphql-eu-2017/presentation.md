@@ -42,7 +42,7 @@ theme: Poster
 
 - Not UI bound (Data Only)
 - Generative Relay-style Pagination
-- Generative Relay-stile Resource reloading
+- Generative Relay-style Resource reloading
 - No Client side Query Parsing
 
 ^ Let's take a look at some of the features we needed.
