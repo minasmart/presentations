@@ -41,9 +41,9 @@ theme: Poster
 [.build-lists: true]
 
 - Not UI bound (Data Only)
-- Generative Relay-style Pagination
-- Generative Relay-style Resource reloading
-- No Client side Query Parsing
+- Generative Relay-Style Pagination
+- Generative Relay-Style Resource Reloading
+- No Client Side Query Parsing
 
 ^ Let's take a look at some of the features we needed.
 
@@ -109,7 +109,7 @@ function render(value) {
 }
 ```
 
-^ In the case that we do need to directly render our query results, we store type information about values.
+^ In the case that we do need to directly render our query results, we need to store type information about values.
 
 ^ This would allow any attached UI to make intelligent choices about how to render data.
 
@@ -247,7 +247,7 @@ const query = client.query((root) => {
 
 ^ In order to get type data into the objects our client returns, we need access to the introspection data. In fact, it needs to be distributed with the client.
 
-^ However, runtime introspection can be a heavy request and use a ton of memory.
+^ Now, runtime introspection can be a heavy request and use a ton of memory.
 
 ^ Similarly, Including the entire schema would make our distributed js very very big.
 
@@ -305,7 +305,7 @@ function defaultTransformers({classRegistry}) {
 }
 ```
 
-^ Since what we're doing through our decoding process is sort of complex, we build our decoder like a set of middle ware. This allows us to have an extensible interface, so we can add or remove decoding features in the future, without really impacting what already exists in our client
+^ Since what we're doing through our decoding process is sort of complex, we build our decoder like a set of middle ware. This allows us to have an extensible interface, so we can add or remove decoding features, without really impacting what already exists in our client
 
 ---
 
@@ -313,7 +313,7 @@ function defaultTransformers({classRegistry}) {
 
 ^ What's next?
 
-^ In the future, we've been looking at building graphql compiler, that can take graphql files, and turn them into js modules. This would keep our query files separate from the rest of our source code, which could have some positive side effects for us, like making it easier for us to profile the types of queries and fields we're actually using, which lets us optimize the type information we ship with a client.
+^ In the future, we've been looking at building graphql compiler, that can take graphql files, and turn them into js modules that export a function that represents that query. This would keep our query files separate from the rest of our source code, which could have some positive side effects for us, like making it easier for us to profile the types of queries and fields we're actually using, which lets us optimize the type information we ship with a client.
 
 ---
 
